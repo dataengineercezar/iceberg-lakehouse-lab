@@ -1,0 +1,63 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# =========================
+# Virtual Environments
+# =========================
+.venv/
+venv/
+env/
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Docker
+# =========================
+docker/spark/metastore_db/
+derby.log
+
+# =========================
+# Spark
+# =========================
+spark-warehouse/
+metastore_db/
+*.log
+
+# =========================
+# Data (manter raw/ vazio com .gitkeep)
+# =========================
+data/raw/*
+!data/raw/.gitkeep
+
+# =========================
+# AWS
+# =========================
+.aws/
+*.pem
+
+# =========================
+# Environment Variables
+# =========================
+.env
+.env.local
