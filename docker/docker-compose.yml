@@ -5,15 +5,18 @@ services:
       dockerfile: Dockerfile
     container_name: spark-iceberg
     environment:
-      # Configurações Iceberg (Hadoop Catalog local)
       - SPARK_CONF_DIR=/opt/spark/conf
+      # AWS Credentials (montadas via volume)
+      - AWS_REGION=us-east-1
+      - AWS_DEFAULT_REGION=us-east-1
     ports:
-      - "8080:8080"   # Spark Master UI
-      - "4040:4040"   # Spark Application UI
+      - "8080:8080"
+      - "4040:4040"
     volumes:
       - spark-warehouse:/home/iceberg/warehouse
       - ../../src:/opt/spark-apps/src
       - ../../data:/opt/spark-apps/data
+      - ~/.aws:/home/spark/.aws:ro
     command: >
       bash -c "
         /opt/spark/sbin/start-master.sh &&
