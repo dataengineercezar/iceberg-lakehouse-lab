@@ -1,0 +1,31 @@
+services:
+  spark-iceberg:
+    build:
+      context: ./spark
+      dockerfile: Dockerfile
+    container_name: spark-iceberg
+    environment:
+      # Configurações Iceberg (Hadoop Catalog local)
+      - SPARK_CONF_DIR=/opt/spark/conf
+    ports:
+      - "8080:8080"   # Spark Master UI
+      - "4040:4040"   # Spark Application UI
+    volumes:
+      - spark-warehouse:/home/iceberg/warehouse
+      - ../../src:/opt/spark-apps/src
+      - ../../data:/opt/spark-apps/data
+    command: >
+      bash -c "
+        /opt/spark/sbin/start-master.sh &&
+        tail -f /opt/spark/logs/*
+      "
+    networks:
+      - iceberg-net
+
+volumes:
+  spark-warehouse:
+    driver: local
+
+networks:
+  iceberg-net:
+    driver: bridge
